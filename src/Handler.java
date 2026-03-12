@@ -1,5 +1,5 @@
 public interface Handler {
-    public void setHandler(Handler handler);
-    public void process(File file);
-    public String getHandlerName();
+    void setNextHandler(Handler nextHandler);
+    void process(File file);
+    String getName();
 }

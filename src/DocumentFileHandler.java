@@ -1,5 +1,5 @@
 public class DocumentFileHandler implements Handler {
-    private Handler handler;
+    private Handler nextHandler;
     private String handlerName;
 
     public DocumentFileHandler(String handlerName) {
@@ -7,24 +7,23 @@ public class DocumentFileHandler implements Handler {
     }
 
     @Override
-    public void setHandler(Handler handler) {
-        this.handler = handler;
+    public void setNextHandler(Handler nextHandler) {
+        this.nextHandler = nextHandler;
     }
 
     @Override
     public void process(File file) {
-        if(file.getFileType().equals("Document")) {
-            System.out.println("Processing: " + file.getFilePath() + "/" + file.getFileName() + " with " + handlerName);
-        } else if(handler != null) {
-            System.out.println(handlerName + " forwards request to " + handler.getHandlerName());
-            handler.process(file);
+        if (file.getFileType().equals("document")) {
+            System.out.println("Processing: " + file.getFileType() + "/" + file.getFileName() + " by " + handlerName);
+        } else if (nextHandler != null) {
+            nextHandler.process(file);
         } else {
-            System.out.println("No handler found for " + file.getFilePath() + "/" + file.getFileName());
+            System.out.println("File not supported");
         }
     }
 
     @Override
-    public String getHandlerName() {
-        return this.handlerName;
+    public String getName() {
+        return handlerName;
     }
 }
